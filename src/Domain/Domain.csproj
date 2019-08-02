@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Description>Camada responsável por manter o Dominio do negócio</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\ControleEstoque\" />
+    <Folder Include="Entities\Compras\" />
+    <Folder Include="Entities\Venda\" />
+    <Folder Include="Interfaces\Repositories\Compras\" />
+    <Folder Include="Interfaces\Repositories\ControleEstoque\" />
+    <Folder Include="Interfaces\Repositories\Venda\" />
+    <Folder Include="Interfaces\Services\Compras\" />
+    <Folder Include="Interfaces\Services\ControleEstoque\" />
+    <Folder Include="Services\Compras\" />
+    <Folder Include="Services\ControleEstoque\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
