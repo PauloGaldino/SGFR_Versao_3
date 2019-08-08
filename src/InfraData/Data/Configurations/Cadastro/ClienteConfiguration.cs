@@ -12,11 +12,7 @@ namespace InfraData.Data.Configurations.Cadastro
 
 
             builder.Property(p => p.Nome)
-                .HasColumnType("varchar (100)")
-                .IsRequired();
-
-            builder.Property(p => p.Sobrenome)
-                .HasColumnType("varchar(50)")
+                .HasColumnType("varchar (160)")
                 .IsRequired();
 
             builder.Property(p => p.Email)

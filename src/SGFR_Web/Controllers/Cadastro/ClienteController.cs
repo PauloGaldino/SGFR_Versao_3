@@ -2,7 +2,7 @@
 using AutoMapper;
 using Domain.Entities.Cadastro;
 using Microsoft.AspNetCore.Mvc;
-using SGFR_Web.ViewModels.Cadastro;
+using SGFR_Web.ViewModels;
 using System.Collections.Generic;
 
 namespace SGFR_Web.Controllers.Cadastro
@@ -24,9 +24,21 @@ namespace SGFR_Web.Controllers.Cadastro
             var clienteViewModel = Mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteViewModel>>(_clienteApp.GetAll());
             return View(clienteViewModel);
         }
-
-        // GET: Clientes/Details/5
-        public ActionResult Details(int id)
+        //public ActionResult Pesquisa()
+        //{
+        //    var clienteViewmodel = Mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteViewModel>>(_clienteApp.ObterClientesEspeciais());
+        //    using (var cliente = new Cliente())
+        //    {
+        //        var _clienteApp = db.Clientes.ToList();
+        //        var data = new ClienteVM()
+        //        {
+        //            Clientes = _cliente
+        //        };
+        //        return View(data);
+        //    }
+        //}
+            // GET: Clientes/Details/5
+            public ActionResult Details(int id)
         {
             var cliente = _clienteApp.GetById(id);
             var clienteViewModel = Mapper.Map<Cliente, ClienteViewModel>(cliente);

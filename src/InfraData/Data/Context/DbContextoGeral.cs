@@ -38,15 +38,15 @@ namespace InfraData.Data.Context
         {
             // Se não estiver configurado no projeto IU pega deginição de chame do json configurado
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseSqlServer(GetStringConectionConfig());
+                optionsBuilder.UseMySql(GetStringConectionConfig());
 
             base.OnConfiguring(optionsBuilder);
         }
 
         private string GetStringConectionConfig()
         {
-            string strCon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SG_Fsbrica_Versao2; Integrated Security=False;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
-
+            //string strCon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SG_Fsbrica_Versao2; Integrated Security=False;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+            string strCon = "Data Source = localhost;database=SG_Refrigerante;user=root;password=admin";
             return strCon;
         }
         public override int SaveChanges()

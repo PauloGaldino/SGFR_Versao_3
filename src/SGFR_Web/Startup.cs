@@ -58,18 +58,39 @@ namespace SGFR_Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //===================SQLSERVER=======================================
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDbContext<DbContextoGeral>(options =>
+            //  options.UseSqlServer(
+            //      Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //services.AddDbContext<DbContextoGeral>(options =>
+            //  options.UseSqlServer(
+            //      Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDefaultIdentity<IdentityUser>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //======================Mysql===========================================
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+               options.UseMySql(
+                   Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<DbContextoGeral>(options =>
+              options.UseMySql(
+                  Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddDbContext<DbContextoGeral>(options =>
-              options.UseSqlServer(
+              options.UseMySql(
                   Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
@@ -139,7 +160,7 @@ namespace SGFR_Web
             //================================================APPLICATION========================================================
             container.Register(typeof(InterfaceAppServiceBase<>), typeof(AppServiceBase<>).Assembly, Lifestyle.Scoped);
             container.Register<InterfaceClienteAppService, ClienteAppService>(Lifestyle.Scoped);
-            container.Register<InterfaceAppProdutoService, ProdutoAppService>(Lifestyle.Scoped);
+            container.Register<InterfaceProdutoAppService, ProdutoAppService>(Lifestyle.Scoped);
 
             //================================================DOMAIN============================================================
             container.Register(typeof(InterfaceServiceBase<>), typeof(ServiceBase<>).Assembly, Lifestyle.Scoped);

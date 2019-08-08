@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities.Cadastro;
 using Domain.Entities.Producao;
-using SGFR_Web.ViewModels.Cadastro;
-using SGFR_Web.ViewModels.Producao;
+using SGFR_Web.ViewModels;
 
 namespace SGFR_Web.AutoMapper
 {

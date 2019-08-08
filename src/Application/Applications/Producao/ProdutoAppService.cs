@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Application.Applications.Producao
 {
-    public class ProdutoAppService : AppServiceBase<Produto>, InterfaceAppProdutoService
+    public class ProdutoAppService : AppServiceBase<Produto>, InterfaceProdutoAppService
     {
         private readonly InterfaceProdutoService _produtoService;
 

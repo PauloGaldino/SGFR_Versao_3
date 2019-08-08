@@ -1,9 +1,9 @@
-﻿using SGFR_Web.ViewModels.Cadastro;
+﻿
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace SGFR_Web.ViewModels.Producao
+namespace SGFR_Web.ViewModels
 {
     public class ProdutoViewModel
     {
@@ -18,8 +18,8 @@ namespace SGFR_Web.ViewModels.Producao
         public string Descricao { get; set; }
 
         [DataType(DataType.Currency)]
-        [Range(typeof(decimal), "0", "9999999")]
-        [MinLength(2, ErrorMessage = "Preencha um valor")]
+        [Range(typeof(decimal), "0", "99999999999")]
+        [Required(ErrorMessage = "Preencha um valor")]
         [DisplayName("Preço Unitário")]
         public decimal PrecoUnitario { get; set; }
 
@@ -28,9 +28,14 @@ namespace SGFR_Web.ViewModels.Producao
         [MinLength(2, ErrorMessage = "Mínimo de {0} caracteres")]
         public string Lote { get; set; }
 
+        [Required(ErrorMessage = "O campo da {0} é obrigatório")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DisplayName("Data de fabricação")]
         public DateTime DataFabricacao { get; set; }
 
+        [Required(ErrorMessage = "O campo da {0} é obrigatório")]
+        //[DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DisplayName("Data de Validade")]
         public DateTime DataValidade { get; set; }
 
@@ -43,6 +48,6 @@ namespace SGFR_Web.ViewModels.Producao
         public bool Ativo { get; set; }
 
         public int ClienteId { get; set; }
-        public virtual ClienteViewModel Cliente { get; set; } //virtual para lazy loading do entity sobrescrever        
+        public  ClienteViewModel Cliente { get; set; } //virtual para lazy loading do entity sobrescrever        
     }
 }

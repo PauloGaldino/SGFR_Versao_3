@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InfraData.Migrations
 {
-    public partial class Inicio : Migration
+    public partial class Mysql : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +13,9 @@ namespace InfraData.Migrations
                 columns: table => new
                 {
                     ClienteId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(nullable: true),
-                    Sobrenome = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(type: "varchar (160)", nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", nullable: false),
                     DataCadastro = table.Column<DateTime>(nullable: false),
                     Ativo = table.Column<bool>(nullable: false)
                 },
@@ -30,12 +29,14 @@ namespace InfraData.Migrations
                 columns: table => new
                 {
                     ProdutoId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Descricao = table.Column<string>(nullable: true),
-                    PrecoUnitario = table.Column<decimal>(nullable: false),
-                    Lote = table.Column<string>(nullable: true),
-                    DataFabricacao = table.Column<DateTime>(nullable: false),
-                    DataValidade = table.Column<DateTime>(nullable: false),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Descricao = table.Column<string>(type: "varchar(100)", nullable: false),
+                    PrecoUnitario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Lote = table.Column<string>(type: "varchar(50)", nullable: false),
+                    DataFabricacao = table.Column<DateTime>(type: "datetime", nullable: false),
+                    DataValidade = table.Column<DateTime>(type: "datetime", nullable: false),
+                    DataCadastro = table.Column<DateTime>(nullable: false),
+                    Ativo = table.Column<bool>(nullable: false),
                     Disponivel = table.Column<bool>(nullable: false),
                     ClienteId = table.Column<int>(nullable: false)
                 },

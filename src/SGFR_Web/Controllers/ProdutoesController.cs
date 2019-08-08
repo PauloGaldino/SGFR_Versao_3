@@ -1,31 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities.Cadastro;
+using Domain.Entities.Producao;
 using InfraData.Data.Context;
 
-namespace SGFR_Web.Controllers.Cadastro
+namespace SGFR_Web.Controllers
 {
-    public class ClientesController : Controller
+    public class ProdutoesController : Controller
     {
         private readonly DbContextoGeral _context;
 
-        public ClientesController(DbContextoGeral context)
+        public ProdutoesController(DbContextoGeral context)
         {
             _context = context;
         }
 
-        // GET: Clientes
+        // GET: Produtoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Clientes.ToListAsync());
+            var dbContextoGeral = _context.Produtos.Include(p => p.Cliente);
+            return View(await dbContextoGeral.ToListAsync());
         }
 
-        // GET: Clientes/Details/5
+        // GET: Produtoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +32,42 @@ namespace SGFR_Web.Controllers.Cadastro
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.ClienteId == id);
-            if (cliente == null)
+            var produto = await _context.Produtos
+                .Include(p => p.Cliente)
+                .FirstOrDefaultAsync(m => m.ProdutoId == id);
+            if (produto == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(produto);
         }
 
-        // GET: Clientes/Create
+        // GET: Produtoes/Create
         public IActionResult Create()
         {
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Email");
             return View();
         }
 
-        // POST: Clientes/Create
+        // POST: Produtoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClienteId,Nome,Sobrenome,Email,DataCadastro,Ativo")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("ProdutoId,Descricao,PrecoUnitario,Lote,DataFabricacao,DataValidade,DataCadastro,Ativo,Disponivel,ClienteId")] Produto produto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
+                _context.Add(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Email", produto.ClienteId);
+            return View(produto);
         }
 
-        // GET: Clientes/Edit/5
+        // GET: Produtoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +75,23 @@ namespace SGFR_Web.Controllers.Cadastro
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente == null)
+            var produto = await _context.Produtos.FindAsync(id);
+            if (produto == null)
             {
                 return NotFound();
             }
-            return View(cliente);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Email", produto.ClienteId);
+            return View(produto);
         }
 
-        // POST: Clientes/Edit/5
+        // POST: Produtoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClienteId,Nome,Sobrenome,Email,DataCadastro,Ativo")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("ProdutoId,Descricao,PrecoUnitario,Lote,DataFabricacao,DataValidade,DataCadastro,Ativo,Disponivel,ClienteId")] Produto produto)
         {
-            if (id != cliente.ClienteId)
+            if (id != produto.ProdutoId)
             {
                 return NotFound();
             }
@@ -97,12 +100,12 @@ namespace SGFR_Web.Controllers.Cadastro
             {
                 try
                 {
-                    _context.Update(cliente);
+                    _context.Update(produto);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.ClienteId))
+                    if (!ProdutoExists(produto.ProdutoId))
                     {
                         return NotFound();
                     }
@@ -113,10 +116,11 @@ namespace SGFR_Web.Controllers.Cadastro
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "Email", produto.ClienteId);
+            return View(produto);
         }
 
-        // GET: Clientes/Delete/5
+        // GET: Produtoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +128,31 @@ namespace SGFR_Web.Controllers.Cadastro
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.ClienteId == id);
-            if (cliente == null)
+            var produto = await _context.Produtos
+                .Include(p => p.Cliente)
+                .FirstOrDefaultAsync(m => m.ProdutoId == id);
+            if (produto == null)
             {
                 return NotFound();
             }
 
-            return View(cliente);
+            return View(produto);
         }
 
-        // POST: Clientes/Delete/5
+        // POST: Produtoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-            _context.Clientes.Remove(cliente);
+            var produto = await _context.Produtos.FindAsync(id);
+            _context.Produtos.Remove(produto);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
+        private bool ProdutoExists(int id)
         {
-            return _context.Clientes.Any(e => e.ClienteId == id);
+            return _context.Produtos.Any(e => e.ProdutoId == id);
         }
     }
 }

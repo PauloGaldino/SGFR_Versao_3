@@ -20,6 +20,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.0" />
     <PackageReference Include="SimpleInjector" Version="4.5.3" />
     <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="4.5.3" />
   </ItemGroup>
@@ -27,9 +28,6 @@
   <ItemGroup>
     <Folder Include="Controllers\Compras\" />
     <Folder Include="Controllers\ControleEstoque\" />
-    <Folder Include="Controllers\Producao\" />
-    <Folder Include="ViewModels\Compras\" />
-    <Folder Include="ViewModels\ControleEstoque\" />
   </ItemGroup>
 
   <ItemGroup>

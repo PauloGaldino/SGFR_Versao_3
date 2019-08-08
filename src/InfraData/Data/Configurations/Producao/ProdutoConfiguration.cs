@@ -24,12 +24,10 @@ namespace InfraData.Data.Configurations.Producao
 
             builder.Property(p => p.DataFabricacao)
                 .HasColumnType("datetime")
-                .HasDefaultValueSql("(getdate())")
-                .IsRequired();
+               .IsRequired();
 
             builder.Property(p => p.DataValidade)
                .HasColumnType("datetime")
-               .HasDefaultValueSql("(getdate())")
                .IsRequired();
 
             builder.Property(e => e.DataCadastro)

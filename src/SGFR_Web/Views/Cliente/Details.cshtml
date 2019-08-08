@@ -1,7 +1,10 @@
-﻿@model SGFR_Web.ViewModels.Cadastro.ClienteViewModel
+﻿@model SGFR_Web.ViewModels.ClienteViewModel
 
+@{
+    ViewData["Title"] = "Detalhes Cliente";
+}
 <div>
-    <h4>ClienteViewModel</h4>
+    <h4>Cliente detalhes</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -16,12 +19,7 @@
         <dd>
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Sobrenome)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Sobrenome)
-        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
@@ -37,6 +35,5 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index">Voltar para a Lista</a>
 </div>

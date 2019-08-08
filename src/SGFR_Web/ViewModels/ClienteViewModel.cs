@@ -1,10 +1,9 @@
-﻿using SGFR_Web.ViewModels.Producao;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace SGFR_Web.ViewModels.Cadastro
+namespace SGFR_Web.ViewModels
 {
     public class ClienteViewModel
     {
@@ -17,11 +16,6 @@ namespace SGFR_Web.ViewModels.Cadastro
         [MinLength(2, ErrorMessage = "Mínimo de {0} caracteres")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "Preencha o campo sobrenome")]
-        [MaxLength(150, ErrorMessage = "Máximo {0} caracteres")]
-        [MinLength(2, ErrorMessage = "Mínimo de {0} caracteres")]
-        public string Sobrenome { get; set; }
-
         [Required(ErrorMessage = "Preencha o campo e-mail")]
         [MaxLength(100, ErrorMessage = "Máximo {0} caracteres")]
         [MinLength(2, ErrorMessage = "Mínimo de {0} caracteres")]
@@ -29,6 +23,10 @@ namespace SGFR_Web.ViewModels.Cadastro
         [DisplayName("E-mail")]
         public string Email { get; set; }
 
+        [Display(Name = "Data")]
+        [Required(ErrorMessage = "The field {0} is required")]
+        //[DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [ScaffoldColumn(false)] //nao quero esse campo criado no scafolding
         [DisplayName("Data do cadastro")]
         public DateTime DataCadastro { get; set; }

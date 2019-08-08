@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Application.Interfaces.Producao
 {
-    public interface InterfaceAppProdutoService : InterfaceAppServiceBase<Produto>
+    public interface InterfaceProdutoAppService : InterfaceAppServiceBase<Produto>
     {
         IEnumerable<Produto> BuscarPorNome(string nome);
     }
