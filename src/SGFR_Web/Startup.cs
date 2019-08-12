@@ -34,6 +34,12 @@ using Domain.Interfaces.Services.Producao;
 using Domain.Services.Producao;
 using Domain.Interfaces.Repositories.Producao;
 using InfraData.Repositories.Producao;
+using Application.Interfaces.Vendas;
+using Application.Applications.Vendas;
+using Domain.Services.Vendas;
+using Domain.Interfaces.Services.Vendas;
+using InfraData.Repositories.Vendas;
+using Domain.Interfaces.Repositories.Vendas;
 
 namespace SGFR_Web
 {
@@ -159,18 +165,24 @@ namespace SGFR_Web
             //add application services. For instance
             //================================================APPLICATION========================================================
             container.Register(typeof(InterfaceAppServiceBase<>), typeof(AppServiceBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<InterfaceCategoriaAppService, CategoriaAppService>(Lifestyle.Scoped);
             container.Register<InterfaceClienteAppService, ClienteAppService>(Lifestyle.Scoped);
             container.Register<InterfaceProdutoAppService, ProdutoAppService>(Lifestyle.Scoped);
+            container.Register<InterfaceImpostoAppService, ImpostoAppService>(Lifestyle.Scoped);
 
             //================================================DOMAIN============================================================
             container.Register(typeof(InterfaceServiceBase<>), typeof(ServiceBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<InterfaceCategoriaService, CategoriaService>(Lifestyle.Scoped);
             container.Register<InterfaceClienteService, ClienteService>(Lifestyle.Scoped);
             container.Register<InterfaceProdutoService, ProdutoService>(Lifestyle.Scoped);
+            container.Register<InterfaceImpostoService, ImpostoService>(Lifestyle.Scoped);
 
             //===============================================INFRASTRUCTURE=====================================================
             container.Register(typeof(InterfaceRepositoryBase<>), typeof(RepositoryBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<InterfaceCategoriaRepository, CategoriaRepository>(Lifestyle.Scoped);
             container.Register<InterfaceClienteRepository, ClienteRepository>(Lifestyle.Scoped);
             container.Register<InterfaceProdutoRepository, ProdutoRepository>(Lifestyle.Scoped);
+            container.Register<InterfaceImpostoRepository, ImpostoRepository>(Lifestyle.Scoped);
 
             //allow Simple Injector to resolve services from ASP.NET Core
             container.AutoCrossWireAspNetComponents(app);

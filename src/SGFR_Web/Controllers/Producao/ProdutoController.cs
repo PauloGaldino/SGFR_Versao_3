@@ -14,11 +14,13 @@ namespace SGFR_Web.Controllers.Producao
     {
         private readonly InterfaceProdutoAppService _produtoApp;
         private readonly InterfaceClienteAppService _clienteApp;
+        private readonly InterfaceCategoriaAppService _categoriaApp;
 
-        public ProdutoController(InterfaceProdutoAppService produtoApp, InterfaceClienteAppService clienteApp)
+        public ProdutoController(InterfaceProdutoAppService produtoApp, InterfaceClienteAppService clienteApp, InterfaceCategoriaAppService categoriaApp)
         {
             _produtoApp = produtoApp;
             _clienteApp = clienteApp;
+            _categoriaApp = categoriaApp;
         }
 
         // GET: Produtos
@@ -43,6 +45,7 @@ namespace SGFR_Web.Controllers.Producao
         {
             //montagem de dropdownlist
             ViewBag.ClienteId = new SelectList(_clienteApp.GetAll(), "ClienteId", "Nome");
+            ViewBag.CategoriaId = new SelectList(_categoriaApp.GetAll(), "CategoriaId", "Descricao");
             return View();
         }
 

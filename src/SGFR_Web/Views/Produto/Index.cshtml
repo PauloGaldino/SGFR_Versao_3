@@ -1,32 +1,26 @@
 ﻿@model IEnumerable<SGFR_Web.ViewModels.ProdutoViewModel>
 
-
-@{
-    ViewBag.Title = "Lista de Produtos";
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        <a class="btn btn-success" asp-action="Create">Criar Novo</a>
-    </p>
-
-    <form asp-controller="Produto" asp-action="Index">
-        <p>
-            Pesquisar por nome: <input type="text" name="Descricao">
-            <input type="submit" value="Pesquisar" />
-        </p>
-    </form>
-   
-    
-    <table class="table">
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoriaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImpostoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imposto)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Descricao)
             </th>
@@ -48,48 +42,54 @@
             <th>
                 @Html.DisplayNameFor(model => model.Ativo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClienteId)
-            </th>
-
+            <th></th>
         </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descricao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrecoUnitario)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lote)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataFabricacao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataValidade)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Disponivel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ativo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClienteId)
-                </td>
-                <td>
-                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.ProdutoId">Editar</a> |
-                    <a class="btn btn-success" asp-action="Details" asp-route-id="@item.ProdutoId">Detalhes</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProdutoId">Deletar</a>
-                </td>
-            </tr>
-        }
-
-    </table>
-</body>
-</html>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProdutoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoriaId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImpostoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imposto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecoUnitario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFabricacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataValidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disponivel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ativo)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

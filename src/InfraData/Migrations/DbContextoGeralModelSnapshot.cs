@@ -39,12 +39,29 @@ namespace InfraData.Migrations
                     b.ToTable("Cliente");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Producao.Categoria", b =>
+                {
+                    b.Property<int>("CategoriaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasMaxLength(100);
+
+                    b.HasKey("CategoriaId");
+
+                    b.ToTable("Categoria");
+                });
+
             modelBuilder.Entity("Domain.Entities.Producao.Produto", b =>
                 {
                     b.Property<int>("ProdutoId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<bool>("Ativo");
+
+                    b.Property<int>("CategoriaId");
 
                     b.Property<int>("ClienteId");
 
@@ -62,6 +79,8 @@ namespace InfraData.Migrations
 
                     b.Property<bool>("Disponivel");
 
+                    b.Property<int>("ImpostoId");
+
                     b.Property<string>("Lote")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -71,16 +90,212 @@ namespace InfraData.Migrations
 
                     b.HasKey("ProdutoId");
 
+                    b.HasIndex("CategoriaId");
+
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("ImpostoId");
 
                     b.ToTable("Produto");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Vendas.DetalhePedido", b =>
+                {
+                    b.Property<int>("DetalhePedidoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("AliquotaFiscal")
+                        .HasColumnName("AliquotaFiscal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasMaxLength(150);
+
+                    b.Property<int>("PedidoId");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnName("Preco")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProdutoId");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnName("Quantidade");
+
+                    b.HasKey("DetalhePedidoId");
+
+                    b.HasIndex("PedidoId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("DetalhePedido");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vendas.DetalheVenda", b =>
+                {
+                    b.Property<int>("DetalheVendaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("AliquotaFiscal")
+                        .HasColumnName("AliquotaFiscal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasMaxLength(200);
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnName("Preco")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProdutoId");
+
+                    b.Property<decimal>("Quantidade")
+                        .HasColumnName("Quantidade")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("VendaId");
+
+                    b.HasKey("DetalheVendaId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("VendaId");
+
+                    b.ToTable("DetalheVenda");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vendas.Imposto", b =>
+                {
+                    b.Property<int>("ImpostoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnName("Descricao")
+                        .HasMaxLength(100);
+
+                    b.Property<float>("Taxa")
+                        .HasColumnName("Taxa");
+
+                    b.HasKey("ImpostoId");
+
+                    b.ToTable("Imposto");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vendas.Pedido", b =>
+                {
+                    b.Property<int>("PedidoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClienteId");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnName("Observacao")
+                        .HasMaxLength(150);
+
+                    b.HasKey("PedidoId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Pedido");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vendas.Venda", b =>
+                {
+                    b.Property<int>("VendaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ClienteId");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("DateTime");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnName("Observacao")
+                        .HasMaxLength(150);
+
+                    b.Property<int>("PedidoId");
+
+                    b.HasKey("VendaId");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("Venda");
+                });
+
             modelBuilder.Entity("Domain.Entities.Producao.Produto", b =>
                 {
+                    b.HasOne("Domain.Entities.Producao.Categoria", "Categoria")
+                        .WithMany("Produtos")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Domain.Entities.Cadastro.Cliente", "Cliente")
                         .WithMany("Produtos")
                         .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entities.Vendas.Imposto", "Imposto")
+                        .WithMany("Produto")
+                        .HasForeignKey("ImpostoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vendas.DetalhePedido", b =>
+                {
+                    b.HasOne("Domain.Entities.Vendas.Pedido", "Pedido")
+                        .WithMany("DetalhesPedidos")
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entities.Producao.Produto", "Produto")
+                        .WithMany("DetalhesPedidos")
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vendas.DetalheVenda", b =>
+                {
+                    b.HasOne("Domain.Entities.Producao.Produto", "Produto")
+                        .WithMany("DetalhesVendas")
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entities.Vendas.Venda", "Venda")
+                        .WithMany("DetalhesVendas")
+                        .HasForeignKey("VendaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vendas.Pedido", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Cliente", "Cliente")
+                        .WithMany("Pedidos")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Vendas.Venda", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Cliente", "Cliente")
+                        .WithMany("Vendas")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entities.Vendas.Pedido", "Pedido")
+                        .WithMany("Vendas")
+                        .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

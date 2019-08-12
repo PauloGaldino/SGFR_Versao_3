@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Producao;
+using Domain.Entities.Vendas;
 using System;
 using System.Collections.Generic;
 
@@ -17,6 +18,10 @@ namespace Domain.Entities.Cadastro
         public bool Ativo { get; set; }
 
         public IEnumerable<Produto> Produtos { get; set; }
+
+        //Um para muitos
+        public List<Venda> Vendas { get; set; }
+        public List<Pedido> Pedidos { get; set; }
 
         //ativo e com 5 anos de cadastro
         public bool ClienteEspecial(Cliente cliente)

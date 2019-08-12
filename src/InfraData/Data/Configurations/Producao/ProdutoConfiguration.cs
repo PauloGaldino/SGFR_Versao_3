@@ -35,6 +35,24 @@ namespace InfraData.Data.Configurations.Producao
 
             builder.Property(e => e.Ativo)
                .IsRequired();
+
+            //Muitos para um
+            builder.HasOne(e => e.Categoria)
+                          .WithMany(e => e.Produtos)
+                          .HasForeignKey(e => e.CategoriaId)
+                          .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.HasOne(e => e.Cliente)
+                .WithMany(e => e.Produtos)
+                .HasForeignKey(e => e.ClienteId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.HasOne(e => e.Imposto)
+              .WithMany(e => e.Produto)
+              .HasForeignKey(e => e.ImpostoId)
+              .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

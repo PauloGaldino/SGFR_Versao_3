@@ -8,10 +8,8 @@
   <ItemGroup>
     <Folder Include="Entities\ControleEstoque\" />
     <Folder Include="Entities\Compras\" />
-    <Folder Include="Entities\Venda\" />
     <Folder Include="Interfaces\Repositories\Compras\" />
     <Folder Include="Interfaces\Repositories\ControleEstoque\" />
-    <Folder Include="Interfaces\Repositories\Venda\" />
     <Folder Include="Interfaces\Services\Compras\" />
     <Folder Include="Interfaces\Services\ControleEstoque\" />
     <Folder Include="Services\Compras\" />

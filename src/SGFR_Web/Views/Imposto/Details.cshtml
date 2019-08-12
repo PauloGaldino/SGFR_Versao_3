@@ -1,0 +1,36 @@
+﻿@model SGFR_Web.ViewModels.Vendas.ImpostoVIewModel
+
+@{
+    ViewData["Title"] = "Detalhes do Imposto";
+}
+
+<h2>Detalhes do Imposto</h2>
+
+<div>
+    <h4>Imposto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ImpostoId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImpostoId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Taxa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Taxa)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.ImpostoId">Editar</a> |
+    <a class="btn btn-primary" asp-action="Index">Voltar para a Lista</a>
+</div>

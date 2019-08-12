@@ -1,0 +1,30 @@
+﻿@model SGFR_Web.ViewModels.CategoriaViewModel
+@{ 
+    ViewData["Title"] = "Deletar  Cliente";
+}
+
+<h2>Deletar</h2>
+
+<h3>Você deseja realmente excluir este cliente?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriaId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoriaId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <a class="btn btn-primary" asp-action="Index">Voltar para a Lista</a>
+    </form>
+</div>

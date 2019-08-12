@@ -1,0 +1,36 @@
+﻿@model SGFR_Web.ViewModels.Vendas.ImpostoVIewModel
+@{
+    ViewData["Title"] = "Deletar  Imposto";
+}
+
+<h2>Deletar</h2>
+
+<h3>Você deseja realmente excluir este cliente?</h3>
+<div>
+    <h4>Imposto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        @Html.DisplayNameFor(model => model.ImpostoId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImpostoId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Taxa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Taxa)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="submit" value="Deletar" class="btn btn-danger" /> |
+        <a class="btn btn-primary" asp-action="Index">Voltar para a Lista</a>
+    </form>
+</div>

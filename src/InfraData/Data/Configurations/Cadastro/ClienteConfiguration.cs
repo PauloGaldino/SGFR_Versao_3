@@ -11,19 +11,28 @@ namespace InfraData.Data.Configurations.Cadastro
             builder.HasKey(c => c.ClienteId);
 
 
-            builder.Property(p => p.Nome)
+            builder.Property(c => c.Nome)
                 .HasColumnType("varchar (160)")
                 .IsRequired();
 
-            builder.Property(p => p.Email)
+            builder.Property(c => c.Email)
                 .HasColumnType("varchar(100)")
                 .IsRequired();
 
-            builder.Property(e => e.DataCadastro)
+            builder.Property(c => c.DataCadastro)
                .IsRequired();
 
-            builder.Property(e => e.Ativo)
+            builder.Property(c=> c.Ativo)
                .IsRequired();
+
+            //muitos para um
+            builder.HasMany(c => c.Pedidos)
+                .WithOne(c => c.Cliente)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            builder.HasMany(c => c.Vendas)
+                .WithOne(c => c.Cliente)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
