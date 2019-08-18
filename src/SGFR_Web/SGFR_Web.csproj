@@ -10,6 +10,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\CategoriaViewModel.cs" />
+    <Compile Remove="ViewModels\ClienteViewModelexc.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\NovaPasta\Menu.css" />
+    <None Remove="Data\NovaPasta\Menu.js" />
+    <None Remove="Data\NovaPasta\MenuLateral.css" />
+    <None Remove="Data\NovaPasta\MenuLAteral.js" />
+    <None Remove="Data\NovaPasta\site.js" />
+    <None Remove="Data\NovaPasta\site.min.js" />
+    <None Remove="ScaffoldingReadMe.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\NovaPasta\Menu.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Data\NovaPasta\MenuLateral.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Data\NovaPasta\site.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Data\NovaPasta\site.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
