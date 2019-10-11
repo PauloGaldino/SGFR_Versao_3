@@ -1,10 +1,10 @@
-﻿using Domain.Entities.Cadastro;
+﻿using Domain.Entities.Cadastro.Pessoas.Clientes;
 using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities.Vendas
 {
-   public class Venda
+    public class Venda
     {
         public int VendaId { get; set; }
 

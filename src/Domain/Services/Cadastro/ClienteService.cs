@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Entities.Cadastro.Pessoas.Clientes;
+using Domain.Interfaces.Repositories.Cadastro.Pessoas.Clientes;
+using Domain.Interfaces.Services.Cadastro.Pessoas;
+using System.Collections.Generic;
 using System.Linq;
-using Domain.Entities.Cadastro;
-using Domain.Interfaces.Repositories.Cadastro;
-using Domain.Interfaces.Services.Cadastro;
 
 namespace Domain.Services.Cadastro
 {
-    public class ClienteService : ServiceBase<Cliente>, InterfaceClienteService
+    public class ClienteService : ServiceBase<Cliente>, IClienteService
     {
-        private readonly InterfaceClienteRepository _clienteRepository;
-        public ClienteService(InterfaceClienteRepository clienteRepository):base(clienteRepository)
+        private readonly IClienteRepository _clienteRepository;
+        public ClienteService(IClienteRepository clienteRepository):base(clienteRepository)
         {
             _clienteRepository = clienteRepository;
         }

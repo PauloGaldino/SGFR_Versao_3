@@ -1,10 +1,19 @@
-﻿using Domain.Entities.Cadastro;
+﻿using Domain.Entities.Cadastro.Pessoas;
+using Domain.Entities.Cadastro.Pessoas.Clientes;
+using Domain.Entities.Cadastro.Pessoas.Contatos;
+using Domain.Entities.Cadastro.Pessoas.Contatos.Emails;
+using Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos;
+using Domain.Entities.Cadastro.Pessoas.Tipos;
 using Domain.Entities.Producao;
 using Domain.Entities.Vendas;
-using InfraData.Data.Configurations.Cadastro;
+using InfraData.Data.Configurations.Cadastro.Pessoas;
+using InfraData.Data.Configurations.Cadastro.Pessoas.Clientes;
+using InfraData.Data.Configurations.Cadastro.Pessoas.Contatos.Emails;
+using InfraData.Data.Configurations.Cadastro.Pessoas.Contatos.Enderecos;
+using InfraData.Data.Configurations.Cadastro.Pessoas.Tipo;
+using InfraData.Data.Configurations.Cadastro.Pessoas.Tipos;
 using InfraData.Data.Configurations.Producao;
 using InfraData.Data.Configurations.Vendas;
-using InfraData.Repositories.Vendas;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -16,12 +25,34 @@ namespace InfraData.Data.Context
     public class DbContextoGeral : DbContext
     {
 
-        public DbContextoGeral(DbContextOptions<DbContextoGeral> options) : base(options){}
+        public DbContextoGeral(DbContextOptions<DbContextoGeral> options) : base(options) { }
         public DbContextoGeral() { }
+
+        //======Entidades relacionadas a Pessoa=============================================
+        public DbSet<PessoaTipo> PessoaTipo { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<PessoaFisica> PessoasFisicas { get; set; }
+        public DbSet<PessoaJuridica> PessoasJuridicas { get; set; }
+
+        //======Cliente=====================================================================
+        public DbSet<Cliente> Clientes { get; set; }
+
+        //======Pessoa/Contato==============================================================
+        public DbSet<Contato> Contatos { get; set; }
+        //=====Contato/Endereco=============================================================
+        public DbSet<Endereco> Enderecos { get; set; }
+        //=====Contato/Endereco/PEssoa======================================================
+        public DbSet<EnderecoPessoa> EnderecosPessoas { get; set; }
+        //=====Contato/Email================================================================
+        public DbSet<Email> Emails { get; set; }
+
+        //====Tipos/Pessoa==================================================================
+        public DbSet<Fisica> Fisicas { get; set; }
+        public DbSet<Juridica> Juridicas { get; set; }
 
         public DbSet<Imposto> Imposto { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
-        public DbSet<Cliente> Clientes { get; set; }
+
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<DetalhePedido> DetalhesPedidos { get; set; }
@@ -30,11 +61,32 @@ namespace InfraData.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //=========Nomeando as Tabelas============================================
+            //==================Pessoas===============================================
+            modelBuilder.Entity<PessoaTipo>().ToTable("PessoaTipo");
+            modelBuilder.Entity<Pessoa>().ToTable("Pessoa");
+            modelBuilder.Entity<PessoaFisica>().ToTable("PessoaFisica");
+            modelBuilder.Entity<PessoaJuridica>().ToTable("PessoaJuridica");
+
+            //=================Cliente================================================
+            modelBuilder.Entity<Cliente>().ToTable("Cliente");
+
+            //================Contatos===============================================
+            modelBuilder.Entity<Contato>().ToTable("Contato");
+            modelBuilder.Entity<Endereco>().ToTable("Endereco");
+            modelBuilder.Entity<Email>().ToTable("Email");
             modelBuilder.Entity<Imposto>().ToTable("Imposto");
+
+            //================Tipos==================================================
+            modelBuilder.Entity<Fisica>().ToTable("FIsica");
+            modelBuilder.Entity<Juridica>().ToTable("Juridica");
+            modelBuilder.Entity<Imposto>().ToTable("Imposto");
+
+
 
             modelBuilder.Entity<Categoria>().ToTable("Categoria");
 
-            modelBuilder.Entity<Cliente>().ToTable("Cliente");
+
 
             modelBuilder.Entity<Produto>().ToTable("Produto");
 
@@ -44,9 +96,26 @@ namespace InfraData.Data.Context
             modelBuilder.Entity<Pedido>().ToTable("Pedido");
             modelBuilder.Entity<DetalhePedido>().ToTable("DetalhePedido");
 
+            //==========Configurando os relacionamentos e os Campos=================
+
+            //==================Pessoas===============================================
+            modelBuilder.ApplyConfiguration(new PessoaTipoConfig());
+            modelBuilder.ApplyConfiguration(new PessoaConfig());
+            modelBuilder.ApplyConfiguration(new FisicaConfig());
+            modelBuilder.ApplyConfiguration(new JuridicaConfig());
+
+            //=================Cliente================================================
+            modelBuilder.ApplyConfiguration(new ClienteConfig());
+
+            //================Contatos===============================================
+            modelBuilder.ApplyConfiguration(new EnderecoConfig());
+            modelBuilder.ApplyConfiguration(new EmailConfig());
+
+
+
             modelBuilder.ApplyConfiguration(new ImpostoConfiguration());
             modelBuilder.ApplyConfiguration(new CategoriaConfiguration());
-            modelBuilder.ApplyConfiguration(new ClienteConfiguration());
+
 
             modelBuilder.ApplyConfiguration(new VendaConfiguration());
             modelBuilder.ApplyConfiguration(new DetalheVendaConfiguration());
@@ -68,7 +137,7 @@ namespace InfraData.Data.Context
 
         private string GetStringConectionConfig()
         {
-           // string strCon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SG_Fabrica; Integrated Security=False;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+            // string strCon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SG_Fabrica; Integrated Security=False;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
             string strCon = "Data Source = localhost;database=SG_Refrigerante;user=root;password=admin";
             return strCon;
         }

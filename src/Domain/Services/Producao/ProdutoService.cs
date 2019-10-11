@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Domain.Services.Producao
 {
-     public class ProdutoService : ServiceBase<Produto>, InterfaceProdutoService
+     public class ProdutoService : ServiceBase<Produto>, IProdutoService
     {
-        private readonly InterfaceProdutoRepository _produtoRepository;
+        private readonly IProdutoRepository _produtoRepository;
 
-        public ProdutoService(InterfaceProdutoRepository produtoRepository)
+        public ProdutoService(IProdutoRepository produtoRepository)
                 : base(produtoRepository)
         {
             _produtoRepository = produtoRepository;

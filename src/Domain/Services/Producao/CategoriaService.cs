@@ -7,10 +7,10 @@ using System.Text;
 
 namespace Domain.Services.Producao
 {
-    public class CategoriaService : ServiceBase<Categoria>, InterfaceCategoriaService
+    public class CategoriaService : ServiceBase<Categoria>, ICategoriaService
     {
-        private readonly InterfaceCategoriaRepository _categoriaRepository;
-        public CategoriaService(InterfaceCategoriaRepository categoriaRepository): base(categoriaRepository)
+        private readonly ICategoriaRepository _categoriaRepository;
+        public CategoriaService(ICategoriaRepository categoriaRepository): base(categoriaRepository)
         {
             _categoriaRepository = categoriaRepository;
         }

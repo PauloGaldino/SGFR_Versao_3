@@ -6,10 +6,10 @@ using System.Collections.Generic;
 namespace Application.Applications
 {
 
-    public class AppServiceBase<TEntity> : IDisposable, InterfaceAppServiceBase<TEntity> where TEntity : class
+    public class AppServiceBase<TEntity> : IDisposable, IAppServiceBase<TEntity> where TEntity : class
     {
-        private readonly InterfaceServiceBase<TEntity> _serviceBase;
-        public AppServiceBase(InterfaceServiceBase<TEntity> serviceBase)
+        private readonly IServiceBase<TEntity> _serviceBase;
+        public AppServiceBase(IServiceBase<TEntity> serviceBase)
         {
             _serviceBase = serviceBase;
         }

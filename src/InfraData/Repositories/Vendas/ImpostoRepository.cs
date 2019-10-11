@@ -3,7 +3,7 @@ using Domain.Interfaces.Repositories.Vendas;
 
 namespace InfraData.Repositories.Vendas
 {
-    public class ImpostoRepository : RepositoryBase<Imposto>, InterfaceImpostoRepository
+    public class ImpostoRepository : RepositoryBase<Imposto>, IImpostoRepository
     {
     }
 }

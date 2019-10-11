@@ -3,7 +3,7 @@ using Domain.Interfaces.Repositories.Vendas;
 
 namespace InfraData.Repositories.Vendas
 {
-    public class PedidoRepository : RepositoryBase<Pedido>, InterfacePedidoRepsitory
+    public class PedidoRepository : RepositoryBase<Pedido>, IPedidoRepsitory
     {
     }
 }

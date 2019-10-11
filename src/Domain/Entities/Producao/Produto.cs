@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Cadastro;
+using Domain.Entities.Cadastro.Pessoas.Clientes;
 using Domain.Entities.Vendas;
 using System;
 using System.Collections.Generic;

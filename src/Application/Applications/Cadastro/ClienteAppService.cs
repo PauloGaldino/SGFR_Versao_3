@@ -1,15 +1,15 @@
 ﻿using Application.Interfaces.Cadastro;
-using Domain.Entities.Cadastro;
-using Domain.Interfaces.Services.Cadastro;
+using Domain.Entities.Cadastro.Pessoas.Clientes;
+using Domain.Interfaces.Services.Cadastro.Pessoas;
 using System.Collections.Generic;
 
 namespace Application.Applications.Cadastro
 {
-    public class ClienteAppService : AppServiceBase<Cliente>, InterfaceClienteAppService
+    public class ClienteAppService : AppServiceBase<Cliente>, IClienteAppService
     {
-        private readonly InterfaceClienteService _clienteService;
+        private readonly IClienteService _clienteService;
 
-        public ClienteAppService(InterfaceClienteService clienteService)
+        public ClienteAppService(IClienteService clienteService)
                 : base(clienteService)
         {
             _clienteService = clienteService;

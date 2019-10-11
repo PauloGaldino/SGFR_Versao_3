@@ -9,10 +9,12 @@ using Application.Interfaces.Vendas;
 using AutoMapper;
 using Domain.Interfaces.Repositories;
 using Domain.Interfaces.Repositories.Cadastro;
+using Domain.Interfaces.Repositories.Cadastro.Pessoas.Clientes;
 using Domain.Interfaces.Repositories.Producao;
 using Domain.Interfaces.Repositories.Vendas;
 using Domain.Interfaces.Services;
 using Domain.Interfaces.Services.Cadastro;
+using Domain.Interfaces.Services.Cadastro.Pessoas;
 using Domain.Interfaces.Services.Producao;
 using Domain.Interfaces.Services.Vendas;
 using Domain.Services;
@@ -158,25 +160,25 @@ namespace SGFR_Web_v02
 
             //add application services. For instance
             //================================================APPLICATION========================================================
-            container.Register(typeof(InterfaceAppServiceBase<>), typeof(AppServiceBase<>).Assembly, Lifestyle.Scoped);
-            container.Register<InterfaceCategoriaAppService, CategoriaAppService>(Lifestyle.Scoped);
-            container.Register<InterfaceClienteAppService, ClienteAppService>(Lifestyle.Scoped);
-            container.Register<InterfaceProdutoAppService, ProdutoAppService>(Lifestyle.Scoped);
-            container.Register<InterfaceImpostoAppService, ImpostoAppService>(Lifestyle.Scoped);
+            container.Register(typeof(IAppServiceBase<>), typeof(AppServiceBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<ICategoriaAppService, CategoriaAppService>(Lifestyle.Scoped);
+            container.Register<IClienteAppService, ClienteAppService>(Lifestyle.Scoped);
+            container.Register<IProdutoAppService, ProdutoAppService>(Lifestyle.Scoped);
+            container.Register<IImpostoAppService, ImpostoAppService>(Lifestyle.Scoped);
 
             //================================================DOMAIN============================================================
-            container.Register(typeof(InterfaceServiceBase<>), typeof(ServiceBase<>).Assembly, Lifestyle.Scoped);
-            container.Register<InterfaceCategoriaService, CategoriaService>(Lifestyle.Scoped);
-            container.Register<InterfaceClienteService, ClienteService>(Lifestyle.Scoped);
-            container.Register<InterfaceProdutoService, ProdutoService>(Lifestyle.Scoped);
-            container.Register<InterfaceImpostoService, ImpostoService>(Lifestyle.Scoped);
+            container.Register(typeof(IServiceBase<>), typeof(ServiceBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<ICategoriaService, CategoriaService>(Lifestyle.Scoped);
+            container.Register<IClienteService, ClienteService>(Lifestyle.Scoped);
+            container.Register<IProdutoService, ProdutoService>(Lifestyle.Scoped);
+            container.Register<IImpostoService, ImpostoService>(Lifestyle.Scoped);
 
             //===============================================INFRASTRUCTURE=====================================================
-            container.Register(typeof(InterfaceRepositoryBase<>), typeof(RepositoryBase<>).Assembly, Lifestyle.Scoped);
-            container.Register<InterfaceCategoriaRepository, CategoriaRepository>(Lifestyle.Scoped);
-            container.Register<InterfaceClienteRepository, ClienteRepository>(Lifestyle.Scoped);
-            container.Register<InterfaceProdutoRepository, ProdutoRepository>(Lifestyle.Scoped);
-            container.Register<InterfaceImpostoRepository, ImpostoRepository>(Lifestyle.Scoped);
+            container.Register(typeof(IRepositoryBase<>), typeof(RepositoryBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<ICategoriaRepository, CategoriaRepository>(Lifestyle.Scoped);
+            container.Register<IClienteRepository, ClienteRepository>(Lifestyle.Scoped);
+            container.Register<IProdutoRepository, ProdutoRepository>(Lifestyle.Scoped);
+            container.Register<IImpostoRepository, ImpostoRepository>(Lifestyle.Scoped);
 
             //allow Simple Injector to resolve services from ASP.NET Core
             container.AutoCrossWireAspNetComponents(app);

@@ -9,9 +9,9 @@ namespace SGFR_Web.Controllers.Vendas
 {
     public class ImpostoController : Controller
     {
-        private readonly InterfaceImpostoAppService _impostoApp;
+        private readonly IImpostoAppService _impostoApp;
 
-        public ImpostoController(InterfaceImpostoAppService impostoApp)
+        public ImpostoController(IImpostoAppService impostoApp)
         {
             _impostoApp = impostoApp;
         }

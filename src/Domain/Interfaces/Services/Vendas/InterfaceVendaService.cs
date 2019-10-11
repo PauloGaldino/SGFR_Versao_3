@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces.Services.Vendas
 {
-    public interface InterfaceVendaService : InterfaceServiceBase<Venda>
+    public interface InterfaceVendaService : IServiceBase<Venda>
     {
     }
 }

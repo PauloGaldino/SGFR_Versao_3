@@ -17,7 +17,7 @@ namespace InfraData.Migrations
                 .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Domain.Entities.Cadastro.Cliente", b =>
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Clientes.Cliente", b =>
                 {
                     b.Property<int>("ClienteId")
                         .ValueGeneratedOnAdd();
@@ -34,9 +34,219 @@ namespace InfraData.Migrations
                         .IsRequired()
                         .HasColumnType("varchar (160)");
 
+                    b.Property<int>("PessoaId");
+
                     b.HasKey("ClienteId");
 
+                    b.HasIndex("PessoaId");
+
                     b.ToTable("Cliente");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Contato", b =>
+                {
+                    b.Property<int>("ContatoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EmailId");
+
+                    b.Property<int>("PessoaId");
+
+                    b.Property<int>("TelefoneId");
+
+                    b.HasKey("ContatoId");
+
+                    b.HasIndex("EmailId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.ToTable("Contato");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Emails.Email", b =>
+                {
+                    b.Property<int>("EmailId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("EnderecoEmail")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("PessoaId");
+
+                    b.HasKey("EmailId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.ToTable("Email");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.Endereco", b =>
+                {
+                    b.Property<int>("EnderecoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("varchar (200)");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasColumnType("varchar (15)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("varchar (200)");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("varchar (100)");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("char (2)");
+
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasColumnType("varchar (200)");
+
+                    b.HasKey("EnderecoId");
+
+                    b.ToTable("Endereco");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.EnderecoPessoa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EnderecoId");
+
+                    b.Property<int>("PessoaId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.ToTable("EnderecosPessoas");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Pessoa", b =>
+                {
+                    b.Property<int>("PessoaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataNascimento");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar (100)");
+
+                    b.Property<int>("PessoaTipoId");
+
+                    b.Property<string>("Sobrenome")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("PessoaId");
+
+                    b.HasIndex("PessoaTipoId");
+
+                    b.ToTable("Pessoa");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.PessoaFisica", b =>
+                {
+                    b.Property<int>("PessoaFisicaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("PessoaFisicaId");
+
+                    b.ToTable("PessoaFisica");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.PessoaJuridica", b =>
+                {
+                    b.Property<int>("PessoaJuridicaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("PessoaJuridicaId");
+
+                    b.ToTable("PessoaJuridica");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.PessoaTipo", b =>
+                {
+                    b.Property<int>("PessoaTipoId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("varchar (10)");
+
+                    b.HasKey("PessoaTipoId");
+
+                    b.ToTable("PessoaTipo");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Tipos.Fisica", b =>
+                {
+                    b.Property<int>("FisicaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("varchar(15)")
+                        .IsUnicode(true);
+
+                    b.Property<int>("PessoaId");
+
+                    b.Property<string>("Rg")
+                        .IsRequired()
+                        .HasColumnType("varchar (15)");
+
+                    b.HasKey("FisicaId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.ToTable("FIsica");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Tipos.Juridica", b =>
+                {
+                    b.Property<int>("JuridicaId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Cnpj")
+                        .IsRequired()
+                        .HasColumnType("varchar(15)");
+
+                    b.Property<DateTime>("DataFundacao");
+
+                    b.Property<string>("InscricaoEstadual")
+                        .IsRequired()
+                        .HasColumnType("varchar(15)");
+
+                    b.Property<string>("NomeFantasia")
+                        .IsRequired()
+                        .HasColumnType("varchar (200)");
+
+                    b.Property<int>("PessoaId");
+
+                    b.Property<string>("RazaoSocial")
+                        .IsRequired()
+                        .HasColumnType("Varchar (200)");
+
+                    b.HasKey("JuridicaId");
+
+                    b.HasIndex("PessoaId");
+
+                    b.ToTable("Juridica");
                 });
 
             modelBuilder.Entity("Domain.Entities.Producao.Categoria", b =>
@@ -234,6 +444,72 @@ namespace InfraData.Migrations
                     b.ToTable("Venda");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Clientes.Cliente", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
+                        .WithMany("Clientes")
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Contato", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Contatos.Emails.Email", "Email")
+                        .WithMany()
+                        .HasForeignKey("EmailId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
+                        .WithMany("Contatos")
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Emails.Email", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
+                        .WithMany("Emails")
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.EnderecoPessoa", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.Endereco", "Endereco")
+                        .WithMany("EnderecosPessoas")
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
+                        .WithMany("EnderecosPessoas")
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Pessoa", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.PessoaTipo", "PessoaTipo")
+                        .WithMany("Pessoas")
+                        .HasForeignKey("PessoaTipoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Tipos.Fisica", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
+                        .WithMany()
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Tipos.Juridica", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
+                        .WithMany()
+                        .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Domain.Entities.Producao.Produto", b =>
                 {
                     b.HasOne("Domain.Entities.Producao.Categoria", "Categoria")
@@ -241,7 +517,7 @@ namespace InfraData.Migrations
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Domain.Entities.Cadastro.Cliente", "Cliente")
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Clientes.Cliente", "Cliente")
                         .WithMany("Produtos")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -280,7 +556,7 @@ namespace InfraData.Migrations
 
             modelBuilder.Entity("Domain.Entities.Vendas.Pedido", b =>
                 {
-                    b.HasOne("Domain.Entities.Cadastro.Cliente", "Cliente")
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Clientes.Cliente", "Cliente")
                         .WithMany("Pedidos")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -288,7 +564,7 @@ namespace InfraData.Migrations
 
             modelBuilder.Entity("Domain.Entities.Vendas.Venda", b =>
                 {
-                    b.HasOne("Domain.Entities.Cadastro.Cliente", "Cliente")
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Clientes.Cliente", "Cliente")
                         .WithMany("Vendas")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Restrict);

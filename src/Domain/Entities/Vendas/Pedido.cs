@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Cadastro;
+﻿using Domain.Entities.Cadastro.Pessoas.Clientes;
 using System;
 using System.Collections.Generic;
 

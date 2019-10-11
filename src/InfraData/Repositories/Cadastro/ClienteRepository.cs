@@ -1,9 +1,9 @@
-﻿using Domain.Entities.Cadastro;
-using Domain.Interfaces.Repositories.Cadastro;
+﻿using Domain.Entities.Cadastro.Pessoas.Clientes;
+using Domain.Interfaces.Repositories.Cadastro.Pessoas.Clientes;
 
 namespace InfraData.Repositories.Cadastro
 {
-    public class ClienteRepository : RepositoryBase<Cliente>, InterfaceClienteRepository
+    public class ClienteRepository : RepositoryBase<Cliente>, IClienteRepository
     {
     }
 }

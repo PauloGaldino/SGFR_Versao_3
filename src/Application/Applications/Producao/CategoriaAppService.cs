@@ -4,10 +4,10 @@ using Domain.Interfaces.Services.Producao;
 
 namespace Application.Applications.Producao
 {
-    public class CategoriaAppService : AppServiceBase<Categoria>, InterfaceCategoriaAppService
+    public class CategoriaAppService : AppServiceBase<Categoria>, ICategoriaAppService
     {
-        private readonly InterfaceCategoriaService _categoriaService;
-        public CategoriaAppService(InterfaceCategoriaService categoriaService) : base(categoriaService)
+        private readonly ICategoriaService _categoriaService;
+        public CategoriaAppService(ICategoriaService categoriaService) : base(categoriaService)
         {
             _categoriaService = categoriaService;
         }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace InfraData.Repositories.Producao
 {
-    public class ProdutoRepository : RepositoryBase<Produto>, InterfaceProdutoRepository
+    public class ProdutoRepository : RepositoryBase<Produto>, IProdutoRepository
     {
         public IEnumerable<Produto> BuscarPorNome(string nome)
         {

@@ -11,11 +11,11 @@ namespace SGFSGFR_Web_v02R_Web.Controllers.Producao
 {
     public class ProdutoController : Controller
     {
-        private readonly InterfaceProdutoAppService _produtoApp;
-        private readonly InterfaceClienteAppService _clienteApp;
-        private readonly InterfaceCategoriaAppService _categoriaApp;
+        private readonly IProdutoAppService _produtoApp;
+        private readonly IClienteAppService _clienteApp;
+        private readonly ICategoriaAppService _categoriaApp;
 
-        public ProdutoController(InterfaceProdutoAppService produtoApp, InterfaceClienteAppService clienteApp, InterfaceCategoriaAppService categoriaApp)
+        public ProdutoController(IProdutoAppService produtoApp, IClienteAppService clienteApp, ICategoriaAppService categoriaApp)
         {
             _produtoApp = produtoApp;
             _clienteApp = clienteApp;

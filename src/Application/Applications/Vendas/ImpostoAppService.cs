@@ -4,11 +4,11 @@ using Domain.Interfaces.Services.Vendas;
 
 namespace Application.Applications.Vendas
 {
-    public class ImpostoAppService : AppServiceBase<Imposto>, InterfaceImpostoAppService
+    public class ImpostoAppService : AppServiceBase<Imposto>, IImpostoAppService
     {
-        private readonly InterfaceImpostoService _impostoService;
+        private readonly IImpostoService _impostoService;
 
-        public ImpostoAppService(InterfaceImpostoService impostoService)
+        public ImpostoAppService(IImpostoService impostoService)
                 : base(impostoService)
         {
             _impostoService = impostoService;

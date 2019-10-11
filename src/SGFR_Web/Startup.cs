@@ -1,45 +1,45 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+﻿using Application.Applications;
+using Application.Applications.Cadastro;
+using Application.Applications.Producao;
+using Application.Applications.Vendas;
+using Application.Interfaces;
+using Application.Interfaces.Cadastro;
+using Application.Interfaces.Producao;
+using Application.Interfaces.Vendas;
+using AutoMapper;
+using Domain.Interfaces.Repositories;
+using Domain.Interfaces.Repositories.Cadastro.Pessoas.Clientes;
+using Domain.Interfaces.Repositories.Producao;
+using Domain.Interfaces.Repositories.Vendas;
+using Domain.Interfaces.Services;
+using Domain.Interfaces.Services.Cadastro.Pessoas;
+using Domain.Interfaces.Services.Producao;
+using Domain.Interfaces.Services.Vendas;
+using Domain.Services;
+using Domain.Services.Cadastro;
+using Domain.Services.Producao;
+using Domain.Services.Vendas;
+using InfraData.Data.Context;
+using InfraData.Repositories;
+using InfraData.Repositories.Cadastro;
+using InfraData.Repositories.Producao;
+using InfraData.Repositories.Vendas;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SGFR_Web.Data;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
-using SimpleInjector.Lifestyles;
-using Application.Applications;
-using SimpleInjector;
-using Application.Interfaces;
-using Domain.Interfaces.Services;
-using Domain.Services;
-using Domain.Interfaces.Repositories;
-using InfraData.Repositories;
-using SimpleInjector.Integration.AspNetCore.Mvc;
-using Container = SimpleInjector.Container;
-using Application.Interfaces.Cadastro;
-using Application.Applications.Cadastro;
-using Domain.Interfaces.Services.Cadastro;
-using Domain.Services.Cadastro;
-using Domain.Interfaces.Repositories.Cadastro;
-using InfraData.Repositories.Cadastro;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SGFR_Web.AutoMapper;
-using InfraData.Data.Context;
-using Application.Interfaces.Producao;
-using Application.Applications.Producao;
-using Domain.Interfaces.Services.Producao;
-using Domain.Services.Producao;
-using Domain.Interfaces.Repositories.Producao;
-using InfraData.Repositories.Producao;
-using Application.Interfaces.Vendas;
-using Application.Applications.Vendas;
-using Domain.Services.Vendas;
-using Domain.Interfaces.Services.Vendas;
-using InfraData.Repositories.Vendas;
-using Domain.Interfaces.Repositories.Vendas;
+using SGFR_Web.Data;
+using SimpleInjector;
+using SimpleInjector.Integration.AspNetCore.Mvc;
+using SimpleInjector.Lifestyles;
+using Container = SimpleInjector.Container;
 
 namespace SGFR_Web
 {
@@ -164,25 +164,25 @@ namespace SGFR_Web
 
             //add application services. For instance
             //================================================APPLICATION========================================================
-            container.Register(typeof(InterfaceAppServiceBase<>), typeof(AppServiceBase<>).Assembly, Lifestyle.Scoped);
-            container.Register<InterfaceCategoriaAppService, CategoriaAppService>(Lifestyle.Scoped);
-            container.Register<InterfaceClienteAppService, ClienteAppService>(Lifestyle.Scoped);
-            container.Register<InterfaceProdutoAppService, ProdutoAppService>(Lifestyle.Scoped);
-            container.Register<InterfaceImpostoAppService, ImpostoAppService>(Lifestyle.Scoped);
+            container.Register(typeof(IAppServiceBase<>), typeof(AppServiceBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<ICategoriaAppService, CategoriaAppService>(Lifestyle.Scoped);
+            container.Register<IClienteAppService, ClienteAppService>(Lifestyle.Scoped);
+            container.Register<IProdutoAppService, ProdutoAppService>(Lifestyle.Scoped);
+            container.Register<IImpostoAppService, ImpostoAppService>(Lifestyle.Scoped);
 
             //================================================DOMAIN============================================================
-            container.Register(typeof(InterfaceServiceBase<>), typeof(ServiceBase<>).Assembly, Lifestyle.Scoped);
-            container.Register<InterfaceCategoriaService, CategoriaService>(Lifestyle.Scoped);
-            container.Register<InterfaceClienteService, ClienteService>(Lifestyle.Scoped);
-            container.Register<InterfaceProdutoService, ProdutoService>(Lifestyle.Scoped);
-            container.Register<InterfaceImpostoService, ImpostoService>(Lifestyle.Scoped);
+            container.Register(typeof(IServiceBase<>), typeof(ServiceBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<ICategoriaService, CategoriaService>(Lifestyle.Scoped);
+            container.Register<IClienteService, ClienteService>(Lifestyle.Scoped);
+            container.Register<IProdutoService, ProdutoService>(Lifestyle.Scoped);
+            container.Register<IImpostoService, ImpostoService>(Lifestyle.Scoped);
 
             //===============================================INFRASTRUCTURE=====================================================
-            container.Register(typeof(InterfaceRepositoryBase<>), typeof(RepositoryBase<>).Assembly, Lifestyle.Scoped);
-            container.Register<InterfaceCategoriaRepository, CategoriaRepository>(Lifestyle.Scoped);
-            container.Register<InterfaceClienteRepository, ClienteRepository>(Lifestyle.Scoped);
-            container.Register<InterfaceProdutoRepository, ProdutoRepository>(Lifestyle.Scoped);
-            container.Register<InterfaceImpostoRepository, ImpostoRepository>(Lifestyle.Scoped);
+            container.Register(typeof(IRepositoryBase<>), typeof(RepositoryBase<>).Assembly, Lifestyle.Scoped);
+            container.Register<ICategoriaRepository, CategoriaRepository>(Lifestyle.Scoped);
+            container.Register<IClienteRepository, ClienteRepository>(Lifestyle.Scoped);
+            container.Register<IProdutoRepository, ProdutoRepository>(Lifestyle.Scoped);
+            container.Register<IImpostoRepository, ImpostoRepository>(Lifestyle.Scoped);
 
             //allow Simple Injector to resolve services from ASP.NET Core
             container.AutoCrossWireAspNetComponents(app);

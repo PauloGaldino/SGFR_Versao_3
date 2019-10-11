@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Application.Applications.Producao
 {
-    public class ProdutoAppService : AppServiceBase<Produto>, InterfaceProdutoAppService
+    public class ProdutoAppService : AppServiceBase<Produto>, IProdutoAppService
     {
-        private readonly InterfaceProdutoService _produtoService;
+        private readonly IProdutoService _produtoService;
 
-        public ProdutoAppService(InterfaceProdutoService produtoService)
+        public ProdutoAppService(IProdutoService produtoService)
             : base(produtoService)
         {
             _produtoService = produtoService;

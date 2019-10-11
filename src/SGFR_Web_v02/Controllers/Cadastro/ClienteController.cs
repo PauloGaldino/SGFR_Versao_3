@@ -1,6 +1,6 @@
 ﻿using Application.Interfaces.Cadastro;
 using AutoMapper;
-using Domain.Entities.Cadastro;
+using Domain.Entities.Cadastro.Pessoas.Clientes;
 using Microsoft.AspNetCore.Mvc;
 using SGFR_Web_v02.ViewModels;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ namespace SGFR_Web_v02.Controllers.Cadastro
     public class ClienteController : Controller
     {
         //private readonly ClienteRepository _clienteRepository = new ClienteRepository();
-        private readonly InterfaceClienteAppService _clienteApp;
+        private readonly IClienteAppService _clienteApp;
 
-        public ClienteController(InterfaceClienteAppService clienteApp)
+        public ClienteController(IClienteAppService clienteApp)
         {
             _clienteApp = clienteApp;
         }

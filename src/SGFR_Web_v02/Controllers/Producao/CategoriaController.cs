@@ -11,9 +11,9 @@ namespace SGFR_Web_v02.Controllers.Producao
     [Authorize]
     public class CategoriaController : Controller
     {
-        private readonly InterfaceCategoriaAppService _categoriaApp;
+        private readonly ICategoriaAppService _categoriaApp;
 
-        public CategoriaController(InterfaceCategoriaAppService categoriaApp)
+        public CategoriaController(ICategoriaAppService categoriaApp)
         {
             _categoriaApp = categoriaApp;
         }

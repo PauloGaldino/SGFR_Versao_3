@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace InfraData.Repositories
 {
-    public class RepositoryBase<TEntity> : IDisposable, InterfaceRepositoryBase<TEntity> where TEntity : class
+    public class RepositoryBase<TEntity> : IDisposable, IRepositoryBase<TEntity> where TEntity : class
     {
         protected DbContextoGeral Db = new DbContextoGeral();
 

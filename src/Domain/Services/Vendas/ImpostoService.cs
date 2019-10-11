@@ -4,10 +4,10 @@ using Domain.Interfaces.Services.Vendas;
 
 namespace Domain.Services.Vendas
 {
-    public class ImpostoService : ServiceBase<Imposto>, InterfaceImpostoService
+    public class ImpostoService : ServiceBase<Imposto>, IImpostoService
     {
-        private readonly InterfaceImpostoRepository _impostoRepository;
-        public ImpostoService(InterfaceImpostoRepository impostoRepository) : base(impostoRepository)
+        private readonly IImpostoRepository _impostoRepository;
+        public ImpostoService(IImpostoRepository impostoRepository) : base(impostoRepository)
         {
             _impostoRepository = impostoRepository;
         }
