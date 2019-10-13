@@ -5,6 +5,6 @@ namespace Domain.Interfaces.Services.Cadastro.Pessoas.Tipos
 {
     public interface IJuridicaService : IServiceBase<Juridica>
     {
-        IEnumerable<Juridica> ObterJuridica(IEnumerable<Juridica> juridicas);
+       
     }
 }

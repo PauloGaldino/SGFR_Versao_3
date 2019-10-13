@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Cadastro.Pessoas.Contatos.Emails;
+using Domain.Entities.Cadastro.Pessoas.Contatos.Telefones;
 
 namespace Domain.Entities.Cadastro.Pessoas.Contatos
 {
@@ -19,7 +20,7 @@ namespace Domain.Entities.Cadastro.Pessoas.Contatos
         public Email Email { get; set; }
 
         public int TelefoneId { get; set; }
-        // public Telefone Telefone { get; set; }
+        public Telefone Telefone { get; set; }
     }
 
 }

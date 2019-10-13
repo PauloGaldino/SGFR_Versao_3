@@ -5,6 +5,6 @@ namespace Domain.Interfaces.Services.Cadastro.Pessoas.Contatos.Enderecos
 {
     public interface IEnderecoService : IServiceBase<Endereco>
     {
-        IEnumerable<Endereco> ObterEndereco(IEnumerable<Endereco> enderecos);
+      
     }
 }

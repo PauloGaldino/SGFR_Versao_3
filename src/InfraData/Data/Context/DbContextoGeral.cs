@@ -3,7 +3,9 @@ using Domain.Entities.Cadastro.Pessoas.Clientes;
 using Domain.Entities.Cadastro.Pessoas.Contatos;
 using Domain.Entities.Cadastro.Pessoas.Contatos.Emails;
 using Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos;
+using Domain.Entities.Cadastro.Pessoas.Contatos.Telefones;
 using Domain.Entities.Cadastro.Pessoas.Tipos;
+using Domain.Entities.ControleEstoque;
 using Domain.Entities.Producao;
 using Domain.Entities.Vendas;
 using InfraData.Data.Configurations.Cadastro.Pessoas;
@@ -31,9 +33,7 @@ namespace InfraData.Data.Context
         //======Entidades relacionadas a Pessoa=============================================
         public DbSet<PessoaTipo> PessoaTipo { get; set; }
         public DbSet<Pessoa> Pessoas { get; set; }
-        public DbSet<PessoaFisica> PessoasFisicas { get; set; }
-        public DbSet<PessoaJuridica> PessoasJuridicas { get; set; }
-
+      
         //======Cliente=====================================================================
         public DbSet<Cliente> Clientes { get; set; }
 
@@ -41,14 +41,23 @@ namespace InfraData.Data.Context
         public DbSet<Contato> Contatos { get; set; }
         //=====Contato/Endereco=============================================================
         public DbSet<Endereco> Enderecos { get; set; }
-        //=====Contato/Endereco/PEssoa======================================================
+        //=====Contato/Endereco/Cliente=====================================================
+        public DbSet<EnderecoCliente> EnderecoClientes { get; set; }
+        //=====Contato/Endereco/Pessoa======================================================
         public DbSet<EnderecoPessoa> EnderecosPessoas { get; set; }
         //=====Contato/Email================================================================
         public DbSet<Email> Emails { get; set; }
+        //=====Telefone=====================================================================
+        public DbSet<TelefoneTipo> TelefoneTipos { get; set; }
+        public DbSet<Telefone> Telefones { get; set; }
 
         //====Tipos/Pessoa==================================================================
         public DbSet<Fisica> Fisicas { get; set; }
         public DbSet<Juridica> Juridicas { get; set; }
+
+
+        //====Controle de Estoque============================================================
+        public DbSet<Estoque> Estoques { get; set; }
 
         public DbSet<Imposto> Imposto { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
@@ -65,9 +74,7 @@ namespace InfraData.Data.Context
             //==================Pessoas===============================================
             modelBuilder.Entity<PessoaTipo>().ToTable("PessoaTipo");
             modelBuilder.Entity<Pessoa>().ToTable("Pessoa");
-            modelBuilder.Entity<PessoaFisica>().ToTable("PessoaFisica");
-            modelBuilder.Entity<PessoaJuridica>().ToTable("PessoaJuridica");
-
+        
             //=================Cliente================================================
             modelBuilder.Entity<Cliente>().ToTable("Cliente");
 
@@ -75,7 +82,8 @@ namespace InfraData.Data.Context
             modelBuilder.Entity<Contato>().ToTable("Contato");
             modelBuilder.Entity<Endereco>().ToTable("Endereco");
             modelBuilder.Entity<Email>().ToTable("Email");
-            modelBuilder.Entity<Imposto>().ToTable("Imposto");
+            modelBuilder.Entity<TelefoneTipo>().ToTable("TelefoneTipo");
+            modelBuilder.Entity<Telefone>().ToTable("Telefone");
 
             //================Tipos==================================================
             modelBuilder.Entity<Fisica>().ToTable("FIsica");
@@ -137,8 +145,8 @@ namespace InfraData.Data.Context
 
         private string GetStringConectionConfig()
         {
-            // string strCon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SG_Fabrica; Integrated Security=False;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
-            string strCon = "Data Source = localhost;database=SG_Refrigerante;user=root;password=admin";
+             string strCon = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SG_Fabrica; Integrated Security=False;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+           // string strCon = "Data Source = localhost;database=SG_Refrigerante;user=root;password=admin";
             return strCon;
         }
         public override int SaveChanges()

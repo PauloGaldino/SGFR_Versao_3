@@ -7,9 +7,7 @@
 
   <ItemGroup>
     <Folder Include="Applications\Compras\" />
-    <Folder Include="Applications\ControleEstoque\" />
     <Folder Include="Interfaces\Compras\" />
-    <Folder Include="Interfaces\ControleEstoque\" />
   </ItemGroup>
 
   <ItemGroup>

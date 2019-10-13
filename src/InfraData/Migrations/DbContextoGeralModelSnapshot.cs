@@ -3,6 +3,7 @@ using System;
 using InfraData.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InfraData.Migrations
@@ -15,12 +16,14 @@ namespace InfraData.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Clientes.Cliente", b =>
                 {
                     b.Property<int>("ClienteId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Ativo");
 
@@ -46,7 +49,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Contato", b =>
                 {
                     b.Property<int>("ContatoId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("EmailId");
 
@@ -60,23 +64,22 @@ namespace InfraData.Migrations
 
                     b.HasIndex("PessoaId");
 
+                    b.HasIndex("TelefoneId");
+
                     b.ToTable("Contato");
                 });
 
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Emails.Email", b =>
                 {
                     b.Property<int>("EmailId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("EnderecoEmail")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("PessoaId");
-
                     b.HasKey("EmailId");
-
-                    b.HasIndex("PessoaId");
 
                     b.ToTable("Email");
                 });
@@ -84,7 +87,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.Endereco", b =>
                 {
                     b.Property<int>("EnderecoId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Bairro")
                         .IsRequired()
@@ -118,10 +122,30 @@ namespace InfraData.Migrations
                     b.ToTable("Endereco");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.EnderecoCliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClienteId");
+
+                    b.Property<int>("EnderecoId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.ToTable("EnderecoClientes");
+                });
+
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.EnderecoPessoa", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("EnderecoId");
 
@@ -136,10 +160,42 @@ namespace InfraData.Migrations
                     b.ToTable("EnderecosPessoas");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Telefones.Telefone", b =>
+                {
+                    b.Property<int>("TelefoneId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Numero");
+
+                    b.Property<int>("TelefoneTipoId");
+
+                    b.HasKey("TelefoneId");
+
+                    b.HasIndex("TelefoneTipoId")
+                        .IsUnique();
+
+                    b.ToTable("Telefone");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Telefones.TelefoneTipo", b =>
+                {
+                    b.Property<int>("TelefoneTipoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao");
+
+                    b.HasKey("TelefoneTipoId");
+
+                    b.ToTable("TelefoneTipo");
+                });
+
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Pessoa", b =>
                 {
                     b.Property<int>("PessoaId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DataNascimento");
 
@@ -160,30 +216,11 @@ namespace InfraData.Migrations
                     b.ToTable("Pessoa");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.PessoaFisica", b =>
-                {
-                    b.Property<int>("PessoaFisicaId")
-                        .ValueGeneratedOnAdd();
-
-                    b.HasKey("PessoaFisicaId");
-
-                    b.ToTable("PessoaFisica");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.PessoaJuridica", b =>
-                {
-                    b.Property<int>("PessoaJuridicaId")
-                        .ValueGeneratedOnAdd();
-
-                    b.HasKey("PessoaJuridicaId");
-
-                    b.ToTable("PessoaJuridica");
-                });
-
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.PessoaTipo", b =>
                 {
                     b.Property<int>("PessoaTipoId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -197,7 +234,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Tipos.Fisica", b =>
                 {
                     b.Property<int>("FisicaId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Cpf")
                         .IsRequired()
@@ -220,7 +258,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Tipos.Juridica", b =>
                 {
                     b.Property<int>("JuridicaId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
@@ -249,10 +288,28 @@ namespace InfraData.Migrations
                     b.ToTable("Juridica");
                 });
 
+            modelBuilder.Entity("Domain.Entities.ControleEstoque.Estoque", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ProdutoId");
+
+                    b.Property<int>("Quantidade");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Estoques");
+                });
+
             modelBuilder.Entity("Domain.Entities.Producao.Categoria", b =>
                 {
                     b.Property<int>("CategoriaId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -267,7 +324,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Producao.Produto", b =>
                 {
                     b.Property<int>("ProdutoId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Ativo");
 
@@ -312,7 +370,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Vendas.DetalhePedido", b =>
                 {
                     b.Property<int>("DetalhePedidoId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("AliquotaFiscal")
                         .HasColumnName("AliquotaFiscal")
@@ -346,7 +405,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Vendas.DetalheVenda", b =>
                 {
                     b.Property<int>("DetalheVendaId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<decimal>("AliquotaFiscal")
                         .HasColumnName("AliquotaFiscal")
@@ -381,7 +441,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Vendas.Imposto", b =>
                 {
                     b.Property<int>("ImpostoId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -399,7 +460,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Vendas.Pedido", b =>
                 {
                     b.Property<int>("PedidoId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ClienteId");
 
@@ -421,7 +483,8 @@ namespace InfraData.Migrations
             modelBuilder.Entity("Domain.Entities.Vendas.Venda", b =>
                 {
                     b.Property<int>("VendaId")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ClienteId");
 
@@ -463,14 +526,24 @@ namespace InfraData.Migrations
                         .WithMany("Contatos")
                         .HasForeignKey("PessoaId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Contatos.Telefones.Telefone", "Telefone")
+                        .WithMany()
+                        .HasForeignKey("TelefoneId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Emails.Email", b =>
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.EnderecoCliente", b =>
                 {
-                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
-                        .WithMany("Emails")
-                        .HasForeignKey("PessoaId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Clientes.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Enderecos.EnderecoPessoa", b =>
@@ -481,8 +554,16 @@ namespace InfraData.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
-                        .WithMany("EnderecosPessoas")
+                        .WithMany()
                         .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cadastro.Pessoas.Contatos.Telefones.Telefone", b =>
+                {
+                    b.HasOne("Domain.Entities.Cadastro.Pessoas.Contatos.Telefones.TelefoneTipo", "TelefoneTipo")
+                        .WithOne("Telefone")
+                        .HasForeignKey("Domain.Entities.Cadastro.Pessoas.Contatos.Telefones.Telefone", "TelefoneTipoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -507,6 +588,14 @@ namespace InfraData.Migrations
                     b.HasOne("Domain.Entities.Cadastro.Pessoas.Pessoa", "Pessoa")
                         .WithMany()
                         .HasForeignKey("PessoaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Entities.ControleEstoque.Estoque", b =>
+                {
+                    b.HasOne("Domain.Entities.Producao.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

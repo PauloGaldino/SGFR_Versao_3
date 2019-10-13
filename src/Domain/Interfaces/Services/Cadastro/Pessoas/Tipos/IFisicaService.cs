@@ -5,6 +5,6 @@ namespace Domain.Interfaces.Services.Cadastro.Pessoas.Tipos
 {
     public interface IFisicaService : IServiceBase<Fisica>
     {
-        IEnumerable<Fisica> ObterFisica(IEnumerable<Fisica> fisicas);
+      
     }
 }

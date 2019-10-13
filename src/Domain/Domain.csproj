@@ -6,14 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\ControleEstoque\" />
     <Folder Include="Entities\Compras\" />
     <Folder Include="Interfaces\Repositories\Compras\" />
-    <Folder Include="Interfaces\Repositories\ControleEstoque\" />
     <Folder Include="Interfaces\Services\Compras\" />
-    <Folder Include="Interfaces\Services\ControleEstoque\" />
     <Folder Include="Services\Compras\" />
-    <Folder Include="Services\ControleEstoque\" />
   </ItemGroup>
 
   <ItemGroup>

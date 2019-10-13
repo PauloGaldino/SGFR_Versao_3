@@ -28,9 +28,9 @@ namespace Domain.Entities.Cadastro.Pessoas
 
         public ICollection<Cliente> Clientes { get; set; }
 
-        public ICollection<EnderecoPessoa> EnderecosPessoas { get; set; }
+        //public ICollection<EnderecoPessoa> EnderecosPessoas { get; set; }
 
-        public ICollection<Email> Emails { get; set; }
+       // public ICollection<Email> Emails { get; set; }
 
         //public ICollection<ProfissaoPessoa> ProfissaoPessoa { get; set; }
     }

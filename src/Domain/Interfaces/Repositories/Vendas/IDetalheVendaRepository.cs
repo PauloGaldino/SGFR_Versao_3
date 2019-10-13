@@ -4,5 +4,6 @@ namespace Domain.Interfaces.Repositories.Vendas
 {
     public interface IDetalheVendaRepository : IRepositoryBase<DetalheVenda>
     {
+        
     }
 }

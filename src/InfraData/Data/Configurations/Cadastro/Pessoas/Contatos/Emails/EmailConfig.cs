@@ -10,13 +10,7 @@ namespace InfraData.Data.Configurations.Cadastro.Pessoas.Contatos.Emails
         {
             builder.HasKey(em => em.EmailId);
 
-            builder
-                .HasOne(em => em.Pessoa)
-                .WithMany(em => em.Emails)
-                .HasForeignKey(em => em.PessoaId)
-                .HasPrincipalKey(em => em.PessoaId)
-                .OnDelete(DeleteBehavior.Restrict);
-
+        
             builder
                 .Property(em => em.EnderecoEmail)
                 .HasColumnType("varchar(100)")

@@ -7,9 +7,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Configurations\Compras\" />
-    <Folder Include="Data\Configurations\ControleEstoque\" />
     <Folder Include="Repositories\Compras\" />
-    <Folder Include="Repositories\ControleEstoque\" />
   </ItemGroup>
 
   <ItemGroup>

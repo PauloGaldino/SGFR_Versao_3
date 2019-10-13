@@ -5,6 +5,6 @@ namespace Domain.Interfaces.Services.Cadastro.Pessoas.Contatos.Emails
 {
     public interface IEmailService : IServiceBase<Email>
     {
-        IEnumerable<Email> ObterPorEmail(IEnumerable<Email> emails);
+       
     }
 }
